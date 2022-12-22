@@ -1,0 +1,30 @@
+{
+    "openai": {
+         "api_key": "替换成你的apikey",
+         "img_size": "1024x1024"
+    },
+    "chatgpt": {
+        "model": "text-davinci-003",
+        "temperature": 0.9,
+        "max_tokens": 3000,
+        "top_p": 1,
+        "echo": false,
+        "presence_penalty": 0,
+        "frequency_penalty": 0
+    },
+    "qq_bot": {
+        "qq_no": "替换成你QQ机器人的qq号",
+        "cqhttp_url": "http://localhost:8600",
+        "max_length": 150,
+        "image_path": "../QBot/data/images",
+        "auto_confirm": false,
+        "admin_qq": "你自己的qq号"
+    },
+    "text_to_image": {
+        "font_size": 30,
+        "width": 700,
+        "font_path": "fonts/sarasa-mono-sc-regular.ttf",
+        "offset_x": 50,
+        "offset_y": 50
+    }
+}
