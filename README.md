@@ -20,4 +20,4 @@ In ```QQchatbot/py/config.json```, fill in your api-key, bot's qq id and your qq
 In ```QQchatbot/QBot/config.yml```, fill in bot's qq id and password.
 5. Launch the program  
 Input ```python py/QBot.py```in one terminal.  
-Input ```cd QBot``````./go-cqhttp```in another terminal. When asked to choose, input 2, then scan the QRcode with bot's qq.
+Input ```cd QBot``` ```./go-cqhttp```in another terminal. When asked to choose, input 2, then scan the QRcode with bot's qq.
