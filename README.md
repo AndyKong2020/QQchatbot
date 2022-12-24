@@ -12,7 +12,7 @@ chatbot for QQ with openai api
 2. Install python requirements  
 ```cd ~/QQchatbot/py```  
 ```pip3 install -r requirements.txt```
-3. Install rust environment
+3. Install cqhttp environment
 ```curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh```  
 When be ask to choose, input 1.
 4. Parameter Configurations  
