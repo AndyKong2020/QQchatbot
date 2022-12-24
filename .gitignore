@@ -3,3 +3,6 @@
 /QBot/session.token
 /QBot/logs/
 /QBot/data/
+/audio/models/
+/audio/output/
+/audio/input/
