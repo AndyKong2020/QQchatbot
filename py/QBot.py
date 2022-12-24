@@ -27,6 +27,38 @@ server = Flask(__name__)
 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 
 
+def get_num_files(path):
+    return len(os.listdir(path))
+
+
+# def generateList(n):
+#     lst = []
+#     for i in range(n):
+#         lst.append(str(i + len(os.listdir("../audio/input"))))
+#     return lst
+#
+#
+# def split_and_save_to_files(s):
+#     # Split s into sections
+#     sections = s.split('\n')
+#     filenames = generateList(len(sections))
+#     # Open files
+#     files = [open('../audio/input/' + name, "w") for name in filenames]
+#     # Write sections to files
+#     for i in range(len(files)):
+#         files[i].write('00|' + sections[i])
+#     # Close files
+#     for f in files:
+#         f.close()
+
+
+def split_and_save_to_files(s):
+    section = "00|" + s.replace('\n', '\n00|')
+    file = open('../audio/input/input.txt', "w")
+    file.write(section)
+    file.close()
+
+
 # 测试接口，可以测试本代码是否正常启动
 @server.route('/', methods=["GET"])
 def index():
@@ -58,6 +90,10 @@ def get_message():
         else:
             msg_text = chat(message, 'P' + str(uid))  # 将消息转发给ChatGPT处理
             send_private_message(uid, msg_text)  # 将消息返回的内容发送给用户
+            while True:
+                if (len(os.listdir('../audio/input')) == 0) and (len(os.listdir('../QBot/data/voices')) != 0):
+                    send_private_audio(uid)
+                    break
 
     if request.get_json().get('message_type') == 'group':  # 如果是群消息
         gid = request.get_json().get('group_id')  # 群号
@@ -182,6 +218,7 @@ def chat(msg, sessionid):
         print("会话ID: " + str(sessionid))
         print("ChatGPT返回内容: ")
         print(message)
+        split_and_save_to_files(message)
         return message
     except Exception as error:
         traceback.print_exc()
@@ -231,6 +268,23 @@ def send_private_message(uid, message):
                             params={'user_id': int(uid), 'message': message}).json()
         if res["status"] == "ok":
             print("私聊消息发送成功")
+        else:
+            print(res)
+            print("私聊消息发送失败，错误信息：" + str(res['wording']))
+
+    except Exception as error:
+        print("私聊消息发送失败")
+        print(error)
+
+
+def send_private_audio(uid):
+    try:
+        message = "[CQ:record,file=0.wav]"
+        res = requests.post(url=config_data['qq_bot']['cqhttp_url'] + "/send_private_msg",
+                            params={'user_id': int(uid), 'message': message}).json()
+        if res["status"] == "ok":
+            print("私聊消息发送成功")
+            os.remove('../QBot/data/voices/0.wav')
         else:
             print(res)
             print("私聊消息发送失败，错误信息：" + str(res['wording']))

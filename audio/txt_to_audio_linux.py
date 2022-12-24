@@ -1,3 +1,4 @@
+import os
 import sys, re
 
 import torch.cuda
@@ -154,15 +155,17 @@ if __name__ == '__main__':
         **hps_ms.model).to(dev)
     _ = net_g_ms.eval()
     utils.load_checkpoint(model, net_g_ms)
-
+    while True:
+        if len(os.listdir('../audio/input')) != 0:
+            break
     while True:
         txt_path = 'input/input.txt'
-        output_path = 'output'
+        output_path = '../QBot/data/voices'
 
         class_from_txt_list = my_get_txtflie(txt_path)
         class_get_loss_list = []
 
-        file_number = 1
+        file_number = 0
 
         # flag = input("Do you want to set start number of wav file?y or n:")
         # if flag == "y":
@@ -176,7 +179,7 @@ if __name__ == '__main__':
         #     pass
 
         for class_fromtxt in class_from_txt_list:
-            str_file_number = str(file_number).zfill(5)
+            str_file_number = str(file_number)
             try:
                 output_path_name = output_path + "/" + str_file_number + ".wav"
                 my_voice_maker(class_fromtxt.seq, class_fromtxt.text, output_path_name)
@@ -199,15 +202,19 @@ if __name__ == '__main__':
                     class_get_loss_list.append(class_file_loss2)
 
         print("Voice Generated Sucessful")
+        os.remove('input/input.txt')
         while True:
-            # flag2 = input("Do you want to concat all the wavfiles?(y or n):")
-            flag2 = "n"
-            if flag2 == "y":
-                silent_audiofile_path = "silent/silent-audio07_re_32bit.wav"
-                make_ffmpeg_outputfile.use_ffmpeg_make_output_file_linux(wav_raw_path=output_path,
-                                                                   silent_audiofile_path=silent_audiofile_path)
-                print("concat successed")
+            if (len(os.listdir('../audio/input')) != 0) and (len(os.listdir('../QBot/data/voices')) == 0):
                 break
-            elif flag2 == "n":
-                break
+        # while True:
+        #     # flag2 = input("Do you want to concat all the wavfiles?(y or n):")
+        #     flag2 = "n"
+        #     if flag2 == "y":
+        #         silent_audiofile_path = "silent/silent-audio07_re_32bit.wav"
+        #         make_ffmpeg_outputfile.use_ffmpeg_make_output_file_linux(wav_raw_path=output_path,
+        #                                                            silent_audiofile_path=silent_audiofile_path)
+        #         print("concat successed")
+        #         break
+        #     elif flag2 == "n":
+        #         break
         # ask_if_continue()
