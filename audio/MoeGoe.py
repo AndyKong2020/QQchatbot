@@ -123,6 +123,7 @@ if __name__ == '__main__':
     while True:
         if len(os.listdir('../audio/input')) != 0:
             break
+        time.sleep(1)
 
     if n_symbols != 0:
         while True:
