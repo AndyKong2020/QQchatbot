@@ -136,8 +136,12 @@ def my_voice_maker(character_seq, text, output_path):
 
 
 if __name__ == '__main__':
-    model = 'models/1/1113_epochs.pth' #input your path of vits model
-    config = 'models/1/config.json' #input your path of config
+    # model = 'models/chinese/1374_epochs.pth' #input your path of vits model
+    # config = 'models/chinese/config.json' #input your path of config
+    # model = 'models/1/1113_epochs.pth' #input your path of vits model
+    # config = 'models/1/config.json' #input your path of config
+    model = 'models/ch_jp/1026_epochs.pth'  # input your path of vits model
+    config = 'models/ch_jp/config.json'  # input your path of config
     print("Loading model......")
 
     dev = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -181,6 +185,7 @@ if __name__ == '__main__':
         for class_fromtxt in class_from_txt_list:
             str_file_number = str(file_number)
             try:
+                # output_path_name = '../QBot/data/voices/0.wav'
                 output_path_name = output_path + "/" + str_file_number + ".wav"
                 my_voice_maker(class_fromtxt.seq, class_fromtxt.text, output_path_name)
             except Exception as the_erro:
