@@ -1,5 +1,6 @@
 import json
 import os
+import time
 import traceback
 import uuid
 from copy import deepcopy
@@ -98,6 +99,7 @@ def get_message():
                 if (len(os.listdir('../audio/input')) == 0) and (len(os.listdir('../QBot/data/voices')) != 0):
                     send_private_audio(uid)
                     break
+                time.sleep(0.5)
 
     if request.get_json().get('message_type') == 'group':  # 如果是群消息
         gid = request.get_json().get('group_id')  # 群号
@@ -129,6 +131,7 @@ def get_message():
                     if (len(os.listdir('../audio/input')) == 0) and (len(os.listdir('../QBot/data/voices')) != 0):
                         send_group_audio(gid)
                         break
+                    time.sleep(0.5)
 
     if request.get_json().get('post_type') == 'request':  # 收到请求消息
         print("收到请求消息")

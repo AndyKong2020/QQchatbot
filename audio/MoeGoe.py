@@ -1,5 +1,7 @@
 import os
 import sys, re
+import time
+
 from torch import no_grad, LongTensor
 import logging
 
@@ -162,6 +164,7 @@ if __name__ == '__main__':
                 while True:
                     if (len(os.listdir('../audio/input')) != 0) and (len(os.listdir('../QBot/data/voices')) == 0):
                         break
+                    time.sleep(0.5)
                 # ask_if_continue()
 
 
