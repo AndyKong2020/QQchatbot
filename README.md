@@ -2,10 +2,9 @@
 chatbot for QQ with openai api
 # Requirements  
 1. a linux host server
-2. network which can visit worldwide internet
-3. an openai api key
-4. an extra qq acount
-5. python3
+2. an openai api key
+3. an extra qq acount
+4. python3
 # Quik Start  
 1. Clone the code from github  
 ```git clone https://github.com/AndyKong2020/QQchatbot.git```
