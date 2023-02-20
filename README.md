@@ -2,7 +2,7 @@
 chatbot for QQ with openai api
 # Requirements  
 1. a linux host server
-2. network which can visit worldwide internet
+2. cuda(alternative)
 3. an openai api key
 4. an extra qq acount
 5. python3
